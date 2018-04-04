@@ -7,6 +7,7 @@
     </div>
     <ul>
       <li v-bind:key="item.id" v-for="item in items">
+        <button v-on:click="removeItem(item.id)" type="button" name="button">X</button>
         {{ item.text }}
       </li>
     </ul>
@@ -35,6 +36,11 @@
         }
 
         input.value = "";
+      },
+      removeItem: function(itemId) {
+        const itemToRemove = this.items.find(i => i.id === itemId);
+        const index = this.items.indexOf(itemToRemove);
+        this.items.splice(index, 1);
       }
     }
   }
@@ -80,6 +86,6 @@
     margin-right: 1rem;
     margin-top: 2px;
     padding: 0.3rem;
-    border-radius: 8px;
+    border-radius: 5px;
   }
 </style>
