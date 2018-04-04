@@ -1,9 +1,7 @@
 <template>
   <div class="card">
     <header>{{ title }}</header>
-    <div class="content">
-      {{ content }}
-    </div>
+    <div class="content" v-html="content"></div>
   </div>
 </template>
 
@@ -13,7 +11,7 @@
     data: function() {
       return {
         title: 'Dinosaurs',
-        content: "Dinonyco",
+        content: "<strong>Dinosaurs</strong> are a diverse group of animals of the clade <em>Dinosauria</em> that first appeared during the Triassic period.",
       };
     },
   }
