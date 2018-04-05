@@ -1,14 +1,14 @@
 <template>
   <div class="card">
-    <header>{{ title }}</header>
+    <header>{{ title | capitalize }}</header>
     <div class="dino-form">
       <input id="itemForm" v-on:keypress.enter="addItem"/>
       <button type="button" name="add dinosaur" v-on:click="addItem">Add Dinossaur</button>
     </div>
     <ul>
       <li v-bind:key="item.id" v-for="item in items">
-        <button v-on:click="removeItem(item.id)" type="button" name="button">X</button>
-        {{ item.text }}
+        <button class="removeItem" v-on:click="removeItem(item.id)" type="button" name="button">x</button>
+        {{ item.text | capitalize }}
       </li>
     </ul>
   </div>
@@ -23,7 +23,7 @@
         items: [
           { id: 1, text: "Velociraptor" },
           { id: 2, text: "Triceratops" },
-          { id: 3, text: "Stegosaurus" },
+          { id: 3, text: "stegosaurus" },
         ],
       };
     },
@@ -42,7 +42,14 @@
         const index = this.items.indexOf(itemToRemove);
         this.items.splice(index, 1);
       }
-    }
+    },
+    filters: {
+      capitalize: function(value) {
+        if(!value) return '';
+        value = value.toString();
+        return value.charAt(0).toUpperCase() + value.slice(1);
+      }
+    },
   }
 </script>
 
@@ -87,5 +94,13 @@
     margin-top: 2px;
     padding: 0.3rem;
     border-radius: 5px;
+  }
+
+  .removeItem {
+    border-radius: 10px;
+    border: 1px solid Orange;
+    font-size: 1rem;
+    background-color: orange;
+    color: white;
   }
 </style>
