@@ -10,6 +10,7 @@
         <button class="removeItem" v-on:click="removeItem(item.id)" type="button" name="button">x</button>
         <h4 class="dinoName">{{ item.text | capitalize }}</h4>
         <span v-if="item.weight" class="basicInfo">The {{ item.text | capitalize }} weighs {{ item.weight }}.</span>
+        <a class="link" v-bind:href="item.text | undercase | url">{{ item.text | undercase | url }}</a>
       </li>
     </ul>
   </div>
@@ -61,6 +62,15 @@
         if(!value) return '';
         value = value.toString();
         return value.charAt(0).toUpperCase() + value.slice(1);
+      },
+      undercase: function(value) {
+        if(!value) return '';
+        value = value.toString();
+        return value.toLowerCase();
+      },
+      url: function(value) {
+        if(!value) return '';
+        return `https://pt.wikipedia.org/wiki/${value}`;
       },
     },
   }
@@ -127,5 +137,12 @@
     font-size: 1em;
     margin-top: 0.3rem;
     margin-left: 1.9rem;
+  }
+
+  .link {
+    font-size: 0.8em;
+    margin-top: 0.3rem;
+    margin-left: 1.9rem;
+    display: block;
   }
 </style>
