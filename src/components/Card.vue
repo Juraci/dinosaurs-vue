@@ -1,10 +1,10 @@
 <template>
   <div class="card">
     <header>{{ title | capitalize }}</header>
-    <div class="dino-form">
-      <input id="itemForm" v-on:keypress.enter="addItem"/>
-      <button type="button" name="add dinosaur" v-on:click="addItem">Add Dinossaur</button>
-    </div>
+    <form v-on:submit.prevent="addItem" class="dino-form">
+      <input id="itemForm" v-model="input"/>
+      <button type="submit" v-bind:disabled="buttonDisabled" name="add dinosaur">{{ buttonText }}</button>
+    </form>
     <ul>
       <li v-bind:key="item.id" v-for="item in items">
         <button class="removeItem" v-on:click="removeItem(item.id)" type="button" name="button">x</button>
@@ -20,11 +20,14 @@
 </template>
 
 <script>
+  import _ from 'lodash';
   export default {
     name: 'Card',
     data: function() {
       return {
         title: 'Dinosaurs',
+        input: "",
+        buttonText: "Add Dinosaur",
         items: [
           {
             id: 1,
@@ -46,13 +49,13 @@
     },
     methods: {
       addItem: function() {
-        const input = document.getElementById('itemForm');
+        const input = this.input;
 
-        if(input.value !== "" && input.value !== " ") {
-          this.items.push({ id: this.items.length + 1, text: input.value });
+        if(input !== "" && input !== " ") {
+          this.items.push({ id: this.items.length + 1, text: input });
         }
 
-        input.value = "";
+        this.input = "";
       },
       removeItem: function(itemId) {
         const itemToRemove = this.items.find(i => i.id === itemId);
@@ -80,6 +83,14 @@
         total: function() {
           return this.items.length;
         },
+        buttonDisabled: function() {
+          return this.input === "";
+        }
+    },
+    watch: {
+      input: _.debounce(function() {
+        this.buttonText = this.input !== "" ? `Add ${this.input}` : "Add Dinosaur";
+      }, 500),
     }
   }
 </script>
