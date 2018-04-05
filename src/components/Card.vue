@@ -9,6 +9,7 @@
       <li v-bind:key="item.id" v-for="item in items">
         <button class="removeItem" v-on:click="removeItem(item.id)" type="button" name="button">x</button>
         <h4 class="dinoName">{{ item.text | capitalize }}</h4>
+        <span v-if="item.weight" class="basicInfo">The {{ item.text | capitalize }} weighs {{ item.weight }}.</span>
       </li>
     </ul>
   </div>
@@ -21,9 +22,21 @@
       return {
         title: 'Dinosaurs',
         items: [
-          { id: 1, text: "Velociraptor" },
-          { id: 2, text: "Triceratops" },
-          { id: 3, text: "stegosaurus" },
+          {
+            id: 1,
+            text: "Velociraptor",
+            weight: "15 kg",
+          },
+          {
+            id: 2,
+            text: "Triceratops",
+            weight: "6000 kg",
+          },
+          {
+            id: 3,
+            text: "stegosaurus",
+            weight: "2500 kg",
+          },
         ],
       };
     },
@@ -48,7 +61,7 @@
         if(!value) return '';
         value = value.toString();
         return value.charAt(0).toUpperCase() + value.slice(1);
-      }
+      },
     },
   }
 </script>
@@ -107,5 +120,12 @@
   .dinoName {
     display: inline;
     margin-left: 0.5rem;
+  }
+
+  .basicInfo {
+    display: block;
+    font-size: 1em;
+    margin-top: 0.3rem;
+    margin-left: 1.9rem;
   }
 </style>
