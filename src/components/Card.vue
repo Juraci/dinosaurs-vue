@@ -13,6 +13,9 @@
         <a class="link" v-bind:href="item.text | undercase | url">{{ item.text | undercase | url }}</a>
       </li>
     </ul>
+    <div class="totalDinosaurs">
+      <span>Amount of Dinosaurs: {{ total }}</span>
+    </div>
   </div>
 </template>
 
@@ -73,6 +76,11 @@
         return `https://pt.wikipedia.org/wiki/${value}`;
       },
     },
+    computed: {
+        total: function() {
+          return this.items.length;
+        },
+    }
   }
 </script>
 
@@ -144,5 +152,12 @@
     margin-top: 0.3rem;
     margin-left: 1.9rem;
     display: block;
+  }
+
+  .totalDinosaurs {
+    margin: 1rem;
+    padding-left: 0.5rem;
+    border: 1px solid Gray;
+    border-radius: 8px;
   }
 </style>
