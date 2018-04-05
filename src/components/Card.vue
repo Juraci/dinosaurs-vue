@@ -8,7 +8,7 @@
     <ul>
       <li v-bind:key="item.id" v-for="item in items">
         <button class="removeItem" v-on:click="removeItem(item.id)" type="button" name="button">x</button>
-        {{ item.text | capitalize }}
+        <h4 class="dinoName">{{ item.text | capitalize }}</h4>
       </li>
     </ul>
   </div>
@@ -102,5 +102,10 @@
     font-size: 1rem;
     background-color: orange;
     color: white;
+  }
+
+  .dinoName {
+    display: inline;
+    margin-left: 0.5rem;
   }
 </style>
