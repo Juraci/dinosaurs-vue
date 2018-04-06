@@ -8,7 +8,7 @@
     <div v-if="items.length > 0" class="list">
       <ul>
         <li v-bind:key="item.id" v-for="item in items">
-          <button class="removeItem" v-on:click="removeItem(item.id)" type="button" name="button">x</button>
+          <button class="removeItem" v-on:click="$emit('remove', item.id)" type="button" name="button">x</button>
           <h4 class="dinoName">{{ item.text | capitalize }}</h4>
           <span v-if="item.weight" class="basicInfo">The {{ item.text | capitalize }} weighs {{ item.weight }}.</span>
           <a class="link" v-bind:href="item.text | undercase | url">{{ item.text | undercase | url }}</a>
@@ -26,45 +26,19 @@
   import { debounce } from 'lodash';
   export default {
     name: 'Card',
+    props: ['items'],
     data: function() {
       return {
         title: 'Dinosaurs',
         input: "",
         buttonText: "Add Dinosaur",
-        items: [
-          {
-            id: 1,
-            text: "Velociraptor",
-            weight: "15 kg",
-          },
-          {
-            id: 2,
-            text: "Triceratops",
-            weight: "6000 kg",
-          },
-          {
-            id: 3,
-            text: "stegosaurus",
-            weight: "2500 kg",
-          },
-        ],
       };
     },
     methods: {
       addItem: function() {
-        const input = this.input;
-
-        if(input !== "" && input !== " ") {
-          this.items.push({ id: this.items.length + 1, text: input });
-        }
-
+        this.$emit('add', this.input);
         this.input = "";
       },
-      removeItem: function(itemId) {
-        const itemToRemove = this.items.find(i => i.id === itemId);
-        const index = this.items.indexOf(itemToRemove);
-        this.items.splice(index, 1);
-      }
     },
     filters: {
       capitalize: function(value) {
