@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import _ from 'lodash';
+  import { debounce } from 'lodash';
   export default {
     name: 'Card',
     data: function() {
@@ -88,7 +88,7 @@
         }
     },
     watch: {
-      input: _.debounce(function() {
+      input: debounce(function() {
         this.buttonText = this.input !== "" ? `Add ${this.input}` : "Add Dinosaur";
       }, 500),
     }
