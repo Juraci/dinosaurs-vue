@@ -5,14 +5,17 @@
       <input id="itemForm" v-model="input"/>
       <button type="submit" v-bind:disabled="buttonDisabled" name="add dinosaur">{{ buttonText }}</button>
     </form>
-    <ul>
-      <li v-bind:key="item.id" v-for="item in items">
-        <button class="removeItem" v-on:click="removeItem(item.id)" type="button" name="button">x</button>
-        <h4 class="dinoName">{{ item.text | capitalize }}</h4>
-        <span v-if="item.weight" class="basicInfo">The {{ item.text | capitalize }} weighs {{ item.weight }}.</span>
-        <a class="link" v-bind:href="item.text | undercase | url">{{ item.text | undercase | url }}</a>
-      </li>
-    </ul>
+    <div v-if="items.length > 0" class="list">
+      <ul>
+        <li v-bind:key="item.id" v-for="item in items">
+          <button class="removeItem" v-on:click="removeItem(item.id)" type="button" name="button">x</button>
+          <h4 class="dinoName">{{ item.text | capitalize }}</h4>
+          <span v-if="item.weight" class="basicInfo">The {{ item.text | capitalize }} weighs {{ item.weight }}.</span>
+          <a class="link" v-bind:href="item.text | undercase | url">{{ item.text | undercase | url }}</a>
+        </li>
+      </ul>
+    </div>
+    <span v-else class="noDinos">No Dinosaurs to display</span>
     <div class="totalDinosaurs">
       <span>Amount of Dinosaurs: {{ total }}</span>
     </div>
@@ -170,5 +173,10 @@
     padding-left: 0.5rem;
     border: 1px solid Gray;
     border-radius: 8px;
+  }
+
+  .noDinos {
+    display: block;
+    margin: 1rem;
   }
 </style>
